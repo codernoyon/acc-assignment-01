@@ -4,13 +4,24 @@ const app = express();
 const userRouter = require('./routes/v1/user.route.js');
 
 
+
 // middlewares
 app.use(cors());
 app.use(express.json());
 
 
 // user route
-app.use('/api/v1/user', userRouter);
+app.use('/user' ,userRouter);
+
+// app.get('/user/random', (req, res) => {
+//     fs.readFile('users.json', (err, data) => {
+//         if(err) {
+//             res.send("Failed to readFile")
+//         }else{
+//             res.send(JSON.parse(data))
+//         }
+//     })
+// })
 
 
 // Test server

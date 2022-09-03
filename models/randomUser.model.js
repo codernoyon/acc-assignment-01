@@ -13,6 +13,7 @@ exports.randomUser = (req, res) => {
             }
         } catch (error) {
             console.log(error);
+            res.end(error.message)
         }
     });
 };
@@ -87,3 +88,8 @@ exports.savedUser = (req, res) => {
         }
     });
 };
+
+
+exports.updateUserInfo = async (req, res) => {
+    
+}

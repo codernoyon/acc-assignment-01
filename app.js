@@ -13,15 +13,7 @@ app.use(express.json());
 // user route
 app.use('/user' ,userRouter);
 
-// app.get('/user/random', (req, res) => {
-//     fs.readFile('users.json', (err, data) => {
-//         if(err) {
-//             res.send("Failed to readFile")
-//         }else{
-//             res.send(JSON.parse(data))
-//         }
-//     })
-// })
+
 
 
 // Test server

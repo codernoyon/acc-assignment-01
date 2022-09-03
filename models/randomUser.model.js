@@ -66,7 +66,7 @@ exports.savedUser = (req, res) => {
                 const jsonData = JSON.parse(data);
                 if (req.body.name && req.body.gender && req.body.photoUrl && req.body.contact && req.body.address) {
                     const newData = {
-                        id: jsonData.length + 1,
+                        id: jsonData[jsonData.length - 1].id + 1,
                         photoUrl: req.body.photoUrl,
                         name: req.body.name,
                         gender: req.body.gender,
@@ -140,6 +140,48 @@ exports.updateUserInfo = async (req, res) => {
                                 }
                             });
                         }
+                    } else {
+                        res.status(404).send({
+                            success: false,
+                            message: "User not exist"
+                        });
+                    }
+                }
+            }
+        } catch (error) {
+            console.log(error);
+            res.end(error.message);
+        }
+    });
+};
+
+
+
+exports.deleteAnUser = (req, res) => {
+    fs.readFile(__dirname + '/users.json', (err, data) => {
+        try {
+            if (err) {
+                res.send("Failed to read data");
+            } else {
+                const users = JSON.parse(data);
+                const id = Number(req.params.id);
+                if (id) {
+                    const findUser = users.find(user => user.id === id);
+                    if (findUser) {
+                        const restUsers = users.filter(user => user.id !== id);
+                        fs.writeFile(__dirname + '/users.json', JSON.stringify(restUsers), (err) => {
+                            if (err) {
+                                res.send({
+                                    success: false,
+                                    error: err.message
+                                });
+                            } else {
+                                res.status(200).send({
+                                    success: true,
+                                    message: "Successfully deleted user"
+                                });
+                            }
+                        });
                     } else {
                         res.status(404).send({
                             success: false,

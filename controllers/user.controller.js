@@ -18,6 +18,4 @@ exports.updateBulkUser = (req, res) => {
     res.send("a list of user details update")
 }
 
-exports.deleteUser = (req, res) => {
-    res.send("a user deleted")
-}
+exports.deleteUser = userModels.deleteAnUser;

@@ -1,18 +1,14 @@
 const fs = require('fs');
-const { randomUser } = require('../models/randomUser.model');
+const userModels = require('../models/randomUser.model');
 
 // get a random user
-exports.getRandomUser = randomUser;
+exports.getRandomUser = userModels.randomUser;
 
 // get all user
-exports.getAllUser = (req, res) => {
-    res.send("All user list")
-}
+exports.getAllUser = userModels.allUser;
 
 // create a user
-exports.createUser = (req, res) => {
-    res.send("new user added")
-}
+exports.createUser = userModels.savedUser;
 
 // update a user details
 exports.updateUser = (req, res) => {

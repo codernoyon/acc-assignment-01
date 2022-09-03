@@ -20,57 +20,70 @@ exports.randomUser = (req, res) => {
 
 exports.allUser = (req, res) => {
     fs.readFile(__dirname + '/users.json', (err, data) => {
+        const users = JSON.parse(data);
         if (err) {
             res.send({
                 success: false,
                 error: "Failed to read data"
             });
         } else {
-            if (req.query.limit) {
+            if (Number(users) < 1) {
+                res.status(404).send({
+                    success: false,
+                    message: "No user data found!"
+                });
+            }
+            else if (Number(req.query.limit) <= users.length) {
                 const limit = Number(req.query.limit);
-                const users = JSON.parse(data);
-
                 res.status(200).send({
+                    length: users.slice(0, limit).length,
                     success: true,
                     data: users.slice(0, limit)
                 });
             } else {
                 res.status(200).send({
+                    length: users.length,
                     success: true,
-                    data: JSON.parse(data)
+                    data: users
                 });
             }
-
         }
     });
 };
 
-const newData = {
-    id: 11,
-    photoUrl: "https://s3media.247sports.com/Uploads/Assets/769/656/9656769.jpg",
-    name: "Noyon Rahman",
-    gender: "male",
-    contact: "+8801706592962",
-    address: "Gazipur, Dhaka, Bangladesh"
-};
 
 
 exports.savedUser = (req, res) => {
     fs.readFile(__dirname + '/users.json', (err, data) => {
-        if(!err){
-            const jsonData = JSON.parse(data)
-            const existId = jsonData.find(user => user.id === Number(req.body.id));
-            if(existId){
-                console.log(req.body.id, 'This id user already exist!!');
+        if (!err) {
+            const jsonData = JSON.parse(data);
+            if (req.body.name && req.body.gender && req.body.photoUrl && req.body.contact && req.body.address) {
+                const newData = {
+                    id: jsonData.length + 1,
+                    photoUrl: req.body.photoUrl,
+                    name: req.body.name,
+                    gender: req.body.gender,
+                    contact: req.body.contact,
+                    address: req.body.address
+                };
+
+                jsonData.push(newData);
+                fs.writeFile(__dirname + '/users.json', JSON.stringify(jsonData), (error) => {
+                    if (error) {
+                        console.log(error);
+                    } else {
+                        res.status(200).send({
+                            success: true,
+                            message: "Successfully saved new user."
+                        });
+                    }
+                });
+            } else {
+                res.status(406).send({
+                    success: false,
+                    message: "Please fulfil all required data."
+                });
             }
-            // jsonData.push(newData)
-            // fs.writeFile(__dirname + '/users.json', JSON.stringify(jsonData), (error) => {
-            //     if(error){
-            //         console.log(error)
-            //     }else{
-            //         console.log('Append success');
-            //     }
-            // })
         }
-    })
+    });
 };

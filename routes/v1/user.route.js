@@ -18,7 +18,7 @@ router
     .post(userContorllers.createUser);
 
 router
-    .route('/update')
+    .route('/update/:id')
     .patch(userContorllers.updateUser);
 
 router

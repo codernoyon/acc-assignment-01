@@ -4,7 +4,6 @@ const app = express();
 const userRouter = require('./routes/v1/user.route.js');
 
 
-
 // middlewares
 app.use(cors());
 app.use(express.json());
@@ -12,7 +11,6 @@ app.use(express.json());
 
 // user route
 app.use('/user' ,userRouter);
-
 
 
 // Test server

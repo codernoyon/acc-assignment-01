@@ -1,12 +1,41 @@
 # random-user-server
 
-
-## [Server Link](https://safe-lake-30552.herokuapp.com/) 
+## The api is hosted on Heroku, to get the api  [**`Click here`**](https://safe-lake-30552.herokuapp.com/)
 
 Make sure to test the API with Postman or any other REST client. (Recommended to use Postman)
 
 ---
 
+This is a simple api that allows you to create, read, random read, update , bulk update, delete using the following endpoints
+
+```
+   1. Get a random user: GET /user/random
+   2. Get a single user: GET /user/id/:id
+   3. Get all users: GET /user/all
+   4. Create a user: POST /user/save
+   5. Update a user: PUT /user/update/:id
+   6. Bulk update users: PUT /user/bulk-update
+   7. Delete a user: DELETE /user/delete/:id
+```
+
+Multiple user update (/user/bulk-update) body JSON data sample
+
+```{
+    "userNewData": [
+        {
+        "id": 11,
+        "contact": "+8801999999999"
+
+        },
+        {
+        "id": 12,
+        "contact": "+8801777777777"
+        }
+    ]
+}
+```
+
+---
 
 ## Technologies used in this project
 
@@ -16,7 +45,9 @@ Make sure to test the API with Postman or any other REST client. (Recommended to
 - Nodemon (For developmnet purpose)
 
 ---
+
 ## Connect with me
+
 <div align="center">
 <a href="https://twitter.com/codernoyon" target="_blank">
 <img src=https://img.shields.io/badge/twitter-%2300acee.svg?&style=for-the-badge&logo=twitter&logoColor=white alt=twitter style="margin-bottom: 5px;" />
@@ -51,4 +82,4 @@ Make sure to test the API with Postman or any other REST client. (Recommended to
 <a href="https://www.youtube.com/c/codernoyon" target="_blank">
 <img src=https://img.shields.io/badge/youtube-%23EE4831.svg?&style=for-the-badge&logo=youtube&logoColor=white alt=youtube style="margin-bottom: 5px;" />
 </a>  
-</div>  
+</div>

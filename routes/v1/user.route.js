@@ -3,8 +3,6 @@ const userContorllers = require('../../controllers/user.controller.js');
 const router = express.Router();
 const fs = require('fs');
 
-
-
 router
     /**
      * @api {get} /random get random user
@@ -21,21 +19,21 @@ router
     .route('/random')
     .get(userContorllers.getRandomUser);
 
-// router
-//     /**
-//      * @api {get} /:id get specific user
-//      * @apiDescription Get a specefic user from the server json file
-//      * @apiPermission admin
-//      * 
-//      * @apiHeader {String} Authentication User's acces token
-//      * 
-//      * @apiSuccess {Object[]}  get spefic user data 
-//      * 
-//      * @apiError (Unathorized 401) Unathorized Only authenticated users can access the data
-//      * @paiError (Forbidden 403) Forbidden Only admins can access the data
-//      */
-//     .route('/:id')
-//     .get(userContorllers.getSpecificUser);
+router
+    /**
+     * @api {get} /:id get specific user
+     * @apiDescription Get a specefic user from the server json file
+     * @apiPermission admin
+     * 
+     * @apiHeader {String} Authentication User's acces token
+     * 
+     * @apiSuccess {Object[]}  get spefic user data 
+     * 
+     * @apiError (Unathorized 401) Unathorized Only authenticated users can access the data
+     * @paiError (Forbidden 403) Forbidden Only admins can access the data
+     */
+    .route('/id/:id')
+    .get(userContorllers.getSpecificUser);
 
 router
     /**
@@ -54,6 +52,8 @@ router
      */
     .route('/all')
     .get(userContorllers.getAllUser);
+
+
 
 router
     /**
@@ -87,9 +87,24 @@ router
      * @paiError (Forbidden 403) Forbidden Only admins can access the data
      */
     .route('/update/:id')
-    .patch(userContorllers.updateUser);
+    
+    .patch(userContorllers.updateUser)
+    
+
 
 router
+/**
+     * @api {patch} /update/bulk-upda update multiple user information by user id
+     * @apiDescription PATCH multiple user information to the json file
+     * @apiPermission admin
+     * 
+     * @apiHeader {String} Authentication User's acces token
+     * 
+     * @apiSuccess {Object[]}  Successfully update multipel user info
+     * 
+     * @apiError (Unathorized 401) Unathorized Only authenticated users can access the data
+     * @paiError (Forbidden 403) Forbidden Only admins can access the data
+     */
     .route('/bulk-update')
     .patch(userContorllers.updateBulkUser);
 
@@ -109,6 +124,7 @@ router
      * @paiError (Forbidden 403) Forbidden Only admins can access the data
      */
     .route('/delete/:id')
-    .delete(userContorllers.deleteUser);
+    .delete(userContorllers.deleteUser)
+    
 
 module.exports = router;

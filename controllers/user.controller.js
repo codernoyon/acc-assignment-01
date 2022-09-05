@@ -1,4 +1,3 @@
-const fs = require('fs');
 const userModels = require('../models/randomUser.model');
 
 // get a random user

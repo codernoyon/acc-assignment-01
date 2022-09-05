@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Random user Generator</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap');
+        *{
+            margin: 0;
+            padding: 0;
+        }
+
+        body{
+            font-family: 'Poppins', sans-serif;
+        }
+
+        .header{
+            text-align: center;
+            background: rgb(80, 146, 245);
+            color: white;
+            font-size: 2.5em;
+        }
+
+        p{
+            font-size: 1.4rem;
+            margin-top: .2rem;
+        }
+        .container{
+            width: 60%;
+            margin: 0 auto;
+        }
+        ol li{
+            font-size: 1.3rem;
+        }
+
+        ol li a{
+            font-size: 1.3rem;
+            background: rgb(221, 220, 220);
+            display: block;
+            margin-top: 1rem;
+            padding: 1rem .8rem;
+            border-radius: .3rem;
+            box-shadow: 1px 2px 5px rgb(0 0 0 / 35%);
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <h1 class="header">Welcome to the Random User Generator API</h1>
+        <p >Here are the available routes</p>
+        <ol>
+            <li><a href="/">/home</a></li>
+            <li><a href="/user/random">/user/random</a></li>
+            <li><a href="/user/id/1">/user/id/:id</a></li>
+            <li><a href="/user/all">/user/all</a></li>
+            <li><a href="/user/save">/user/save</a></li>
+            <li><a href="/user/update/1">/user/update/:id</a></li>
+            <li><a href="/user/bulk-update">/user/bulk-update</a></li>
+            <li><a href="/user/delete/1">/user/delete/:id</a></li>
+        </ol>
+    </div>
+</body>
+
+</html> 

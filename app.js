@@ -10,16 +10,18 @@ app.use(express.json());
 
 
 // user route
-app.use('/user' ,userRouter);
+app.use('/user', userRouter);
 
 
 // Test server
 app.get("/", (req, res) => {
-    res.send({success: true, message: "Random user server is running!"})
+    res.sendFile(__dirname + '/public/index.html');
 });
+
+
 // no route found
 app.all('*', (req, res) => {
-    res.send({success: false, message: "No route found!"})
+    res.send({ success: false, message: "No route found!" });
 });
 
 module.exports = app;

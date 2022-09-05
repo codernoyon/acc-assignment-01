@@ -9,9 +9,17 @@ exports.randomUser = (req, res) => {
                 res.send("Failed to read data");
             } else {
                 const users = JSON.parse(data);
-                const randomNumber = Math.ceil(Math.random() * users.length);
-                const randomOne = users.find(user => user.id === randomNumber);
-                res.json(randomOne);
+                if (users.length < 1) {
+                    res.send({
+                        success: false,
+                        message: "No user found!"
+                    });
+                } else {
+                    const randomNumber = Math.ceil(Math.random() * users.length);
+                    const randomOne = users.find(user => user.id === randomNumber);
+                    res.json(randomOne);
+                }
+
             }
         } catch (error) {
             console.log(error);

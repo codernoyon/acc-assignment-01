@@ -21,21 +21,21 @@ router
     .route('/random')
     .get(userContorllers.getRandomUser);
 
-router
-    /**
-     * @api {get} /:id get specific user
-     * @apiDescription Get a specefic user from the server json file
-     * @apiPermission admin
-     * 
-     * @apiHeader {String} Authentication User's acces token
-     * 
-     * @apiSuccess {Object[]}  get spefic user data 
-     * 
-     * @apiError (Unathorized 401) Unathorized Only authenticated users can access the data
-     * @paiError (Forbidden 403) Forbidden Only admins can access the data
-     */
-    .route('/:id')
-    .get(userContorllers.getSpecificUser);
+// router
+//     /**
+//      * @api {get} /:id get specific user
+//      * @apiDescription Get a specefic user from the server json file
+//      * @apiPermission admin
+//      * 
+//      * @apiHeader {String} Authentication User's acces token
+//      * 
+//      * @apiSuccess {Object[]}  get spefic user data 
+//      * 
+//      * @apiError (Unathorized 401) Unathorized Only authenticated users can access the data
+//      * @paiError (Forbidden 403) Forbidden Only admins can access the data
+//      */
+//     .route('/:id')
+//     .get(userContorllers.getSpecificUser);
 
 router
     /**

@@ -1,5 +1,7 @@
 const fs = require('fs');
 
+
+// get random user user -> /user/random 
 exports.randomUser = (req, res) => {
     fs.readFile(__dirname + '/users.json', (err, data) => {
         try {
@@ -19,6 +21,40 @@ exports.randomUser = (req, res) => {
 };
 
 
+// get single specific user info -> /user/:id
+exports.specificUser = (req, res) => {
+    fs.readFile(__dirname + '/users.json', (err, data) => {
+        try {
+            if (err) {
+                res.send("Enternal Error");
+            } else {
+                const users = JSON.parse(data);
+                const id = Number(req.params.id);
+                if (id) {
+                    const findUser = users.find(user => user.id === id);
+                    if (findUser) {
+                        res.json(findUser);
+                    } else {
+                        res.status(404).send({
+                            success: false,
+                            message: "User not found!"
+                        });
+                    }
+                }
+            }
+        } catch (error) {
+            console.log(error);
+            res.end(error.message);
+        }
+    });
+};
+
+
+
+
+
+
+// get all user -> /user/all (can be use query parameta limit={1 to any Number})
 exports.allUser = (req, res) => {
     fs.readFile(__dirname + '/users.json', (err, data) => {
         try {
@@ -58,7 +94,7 @@ exports.allUser = (req, res) => {
 };
 
 
-
+// create a new user -> /user/save
 exports.savedUser = (req, res) => {
     fs.readFile(__dirname + '/users.json', (err, data) => {
         try {
@@ -98,7 +134,7 @@ exports.savedUser = (req, res) => {
     });
 };
 
-
+// update single user info ->  /user/update:id
 exports.updateUserInfo = async (req, res) => {
     fs.readFile(__dirname + '/users.json', (err, data) => {
         try {
@@ -156,52 +192,57 @@ exports.updateUserInfo = async (req, res) => {
 };
 
 
+// /user/bulk-update api 
 exports.userBulkUpdate = (req, res) => {
     fs.readFile(__dirname + '/users.json', (err, data) => {
-        if (!err) {
-            const users = JSON.parse(data);
-            const { userNewData } = req.body;
-            const filteredUser = [];
-            for (const requestedUser of userNewData) {
-                const foundedUsers = users.find(user => user.id === requestedUser.id);
-                if (foundedUsers) {
-                    filteredUser.push(foundedUsers);
+        try {
+            if (!err) {
+                const users = JSON.parse(data);
+                const { userNewData } = req.body;
+                const filteredUser = [];
+                for (const requestedUser of userNewData) {
+                    const foundedUsers = users.find(user => user.id === requestedUser.id);
+                    if (foundedUsers) {
+                        filteredUser.push(foundedUsers);
+                    }
+                }
+                if (filteredUser.length > 0) {
+                    const updatedUsers = users.map((user) => {
+                        const updatedUser = userNewData.find((u) => u.id === user.id);
+                        return updatedUser ? { ...user, ...updatedUser } : user;
+                    });
+                    fs.writeFile(__dirname + '/users.json', JSON.stringify(updatedUsers), (err) => {
+                        if (err) {
+                            res.send({
+                                success: false,
+                                message: err.message
+                            });
+                        } else {
+                            res.status(200).send({
+                                success: true,
+                                message: "Successfully user information update."
+                            });
+                        }
+                    });
+                } else {
+                    res.status(404).send({
+                        success: false,
+                        message: "No mathed Id user found!!"
+                    });
                 }
             }
-            if (filteredUser.length > 0) {
-                const updatedUsers = users.map((user) => {
-                    const updatedUser = userNewData.find((u) => u.id === user.id);
-                    return updatedUser ? { ...user, ...updatedUser } : user;
-
-                });
-
-                fs.writeFile(__dirname + '/users.json', JSON.stringify(updatedUsers), (err) => {
-                    if (err) {
-                        res.send({
-                            success: false,
-                            message: err.message
-                        });
-                    } else {
-                        res.status(200).send({
-                            success: true,
-                            message: "Successfully user information update."
-                        });
-                    }
-                });
-            }else{
-                res.status(404).send({
-                    success: false,
-                    message: "No mathed Id user found!!"
-                })
-            }
+        } catch (error) {
+            console.log(error);
+            res.end(error.message);
         }
+
     });
 };
 
 
 
 
-
+// delete user -> /user/delete/:id
 exports.deleteAnUser = (req, res) => {
     fs.readFile(__dirname + '/users.json', (err, data) => {
         try {

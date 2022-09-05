@@ -1,7 +1,7 @@
 const express = require('express');
 const userContorllers = require('../../controllers/user.controller.js');
 const router = express.Router();
-const fs = require('fs')
+const fs = require('fs');
 
 
 
@@ -19,7 +19,23 @@ router
      * @paiError (Forbidden 403) Forbidden Only admins can access the data
      */
     .route('/random')
-    .get(userContorllers.getRandomUser)  
+    .get(userContorllers.getRandomUser);
+
+router
+    /**
+     * @api {get} /:id get specific user
+     * @apiDescription Get a specefic user from the server json file
+     * @apiPermission admin
+     * 
+     * @apiHeader {String} Authentication User's acces token
+     * 
+     * @apiSuccess {Object[]}  get spefic user data 
+     * 
+     * @apiError (Unathorized 401) Unathorized Only authenticated users can access the data
+     * @paiError (Forbidden 403) Forbidden Only admins can access the data
+     */
+    .route('/:id')
+    .get(userContorllers.getSpecificUser);
 
 router
     /**

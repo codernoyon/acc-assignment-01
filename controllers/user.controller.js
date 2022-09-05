@@ -4,6 +4,9 @@ const userModels = require('../models/randomUser.model');
 // get a random user
 exports.getRandomUser = userModels.randomUser;
 
+// get specific user
+exports.getSpecificUser = userModels.specificUser;
+
 // get all user
 exports.getAllUser = userModels.allUser;
 

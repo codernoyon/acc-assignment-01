@@ -26,3 +26,24 @@ app.all('*', (req, res) => {
 });
 
 module.exports = app;
+// const users = JSON.parse(data);
+            // const { userNewData } = req.body;
+            // const updatedUsers = users.map((user) => {
+            //     const updatedUser = userNewData.find((u) => u.id === user.id);
+            //     return updatedUser ? { ...user, ...updatedUser } : user;
+
+            // });
+
+            // fs.writeFile(__dirname + '/users.json', JSON.stringify(updatedUsers), (err) => {
+            //     if (err) {
+            //         res.send({
+            //             success: false,
+            //             message: err.message
+            //         });
+            //     } else {
+            //         res.send({
+            //             success: true,
+            //             message: "Successfully user information update."
+            //         });
+            //     }
+            // });

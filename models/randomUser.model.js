@@ -156,6 +156,51 @@ exports.updateUserInfo = async (req, res) => {
 };
 
 
+exports.userBulkUpdate = (req, res) => {
+    fs.readFile(__dirname + '/users.json', (err, data) => {
+        if (!err) {
+            const users = JSON.parse(data);
+            const { userNewData } = req.body;
+            const filteredUser = [];
+            for (const requestedUser of userNewData) {
+                const foundedUsers = users.find(user => user.id === requestedUser.id);
+                if (foundedUsers) {
+                    filteredUser.push(foundedUsers);
+                }
+            }
+            if (filteredUser.length > 0) {
+                const updatedUsers = users.map((user) => {
+                    const updatedUser = userNewData.find((u) => u.id === user.id);
+                    return updatedUser ? { ...user, ...updatedUser } : user;
+
+                });
+
+                fs.writeFile(__dirname + '/users.json', JSON.stringify(updatedUsers), (err) => {
+                    if (err) {
+                        res.send({
+                            success: false,
+                            message: err.message
+                        });
+                    } else {
+                        res.status(200).send({
+                            success: true,
+                            message: "Successfully user information update."
+                        });
+                    }
+                });
+            }else{
+                res.status(404).send({
+                    success: false,
+                    message: "No mathed Id user found!!"
+                })
+            }
+        }
+    });
+};
+
+
+
+
 
 exports.deleteAnUser = (req, res) => {
     fs.readFile(__dirname + '/users.json', (err, data) => {

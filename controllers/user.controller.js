@@ -14,8 +14,6 @@ exports.createUser = userModels.savedUser;
 exports.updateUser = userModels.updateUserInfo;
 
 // update bulk user details
-exports.updateBulkUser = (req, res) => {
-    res.send("a list of user details update")
-}
+exports.updateBulkUser = userModels.userBulkUpdate;
 
 exports.deleteUser = userModels.deleteAnUser;
